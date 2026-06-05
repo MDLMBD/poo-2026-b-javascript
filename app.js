@@ -8,6 +8,8 @@ const estudiantes = [
   { id: 6, nombre: "Pedro Soto",   nota: 62 },
 ];
 
+
+
 //estudiante solo
 const estudiantex = {
     id : 7,
@@ -17,6 +19,10 @@ const estudiantex = {
 
 //referencias al DOM
 const seccionEstudiantes = document.getElementById("lista-estudiantes")
+const botonTodos = document.getElementById("btn-todos")
+const botonAprobados = document.getElementById("btn-aprobados")
+const botonReprobados = document.getElementById("btn-reprobados")
+const botonPromedio = document.getElementById("btn-promedio")
 
 //Funciones
 const crearTarjeta = (unEstudiante) => {
@@ -50,7 +56,42 @@ const renderizarLista = (ListaARenderizar) => {
 }
 
 //Eventos
+botonTodos.addEventListener('click', () => {
+    renderizarLista(estudiantes)
+})
 
+botonAprobados.addEventListener('click', () => {
+    const aprobados = estudiantes.filter(
+        (unEstudianteX) => {
+            return unEstudianteX.nota > 60
+        }
+    )
+
+    renderizarLista(aprobados)
+})
+
+botonReprobados.addEventListener('click', () => {
+    const reprobados = estudiantes.filter(
+        (unEstudianteX) => {
+            return unEstudianteX.nota < 61
+        }
+    )
+
+    renderizarLista(reprobados)
+})
+
+/*botonPromedio.addEventListener('click', () => {
+    const Adicion = estudiantes.reduce(
+    (variablePersistente, unEstudianteX) => {
+        return variablePersistente + unEstudianteX.nota
+    }
+    ,
+    0
+    )
+
+    const promedio = Adicion/estudiantes.forEach
+
+    
+})*/
 
 //Llamadas a funciones
-renderizarLista(estudiantes)

@@ -23,6 +23,7 @@ const botonTodos = document.getElementById("btn-todos")
 const botonAprobados = document.getElementById("btn-aprobados")
 const botonReprobados = document.getElementById("btn-reprobados")
 const botonPromedio = document.getElementById("btn-promedio")
+const seccionPromedio = document.getElementById("resultado-promedio")
 
 //Funciones
 const crearTarjeta = (unEstudiante) => {
@@ -55,8 +56,17 @@ const renderizarLista = (ListaARenderizar) => {
 
 }
 
+const toFixedTrunc = (num, decimales) => {
+    const factor = Math.pow(10, decimales)
+
+    const truncado = Math.trunc(num * factor) / factor
+
+    return truncado.toFixed(decimales)
+}
+
 //Eventos
 botonTodos.addEventListener('click', () => {
+    seccionPromedio.style.display = "none"
     renderizarLista(estudiantes)
 })
 
@@ -66,7 +76,7 @@ botonAprobados.addEventListener('click', () => {
             return unEstudianteX.nota > 60
         }
     )
-
+    seccionPromedio.style.display = "none"
     renderizarLista(aprobados)
 })
 
@@ -76,11 +86,11 @@ botonReprobados.addEventListener('click', () => {
             return unEstudianteX.nota < 61
         }
     )
-
+    seccionPromedio.style.display = "none"
     renderizarLista(reprobados)
 })
 
-/*botonPromedio.addEventListener('click', () => {
+botonPromedio.addEventListener('click', () => {
     const Adicion = estudiantes.reduce(
     (variablePersistente, unEstudianteX) => {
         return variablePersistente + unEstudianteX.nota
@@ -89,9 +99,12 @@ botonReprobados.addEventListener('click', () => {
     0
     )
 
-    const promedio = Adicion/estudiantes.forEach
+    const promedio = Adicion/estudiantes.length
 
-    
-})*/
+    seccionPromedio.innerHTML = "Promedio general: " + toFixedTrunc(promedio, 2)
+
+    seccionPromedio.style.display = "block"
+
+})
 
 //Llamadas a funciones

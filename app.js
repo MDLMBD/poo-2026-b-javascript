@@ -1,21 +1,6 @@
 //declaracion de variables
 const estudiantes = [
-  { id: 1, nombre: "Ana Lopez",    nota: 90 },
-  { id: 2, nombre: "Carlos Ruiz",  nota: 55 },
-  { id: 3, nombre: "Maria Torres", nota: 78 },
-  { id: 4, nombre: "Luis Mendez",  nota: 45 },
-  { id: 5, nombre: "Sofia Rios",   nota: 88 },
-  { id: 6, nombre: "Pedro Soto",   nota: 62 },
 ];
-
-
-
-//estudiante solo
-const estudiantex = {
-    id : 7,
-    nombre: "Lucia Gomez",
-    nota:    95
-}   
 
 //referencias al DOM
 const seccionEstudiantes = document.getElementById("lista-estudiantes")
@@ -24,6 +9,9 @@ const botonAprobados = document.getElementById("btn-aprobados")
 const botonReprobados = document.getElementById("btn-reprobados")
 const botonPromedio = document.getElementById("btn-promedio")
 const seccionPromedio = document.getElementById("resultado-promedio")
+const nombreEstudiante = document.getElementById("input-nombre")
+const notaEstudiante = document.getElementById("input-nota")
+const botonAgregar = document.getElementById("btn-agregar")
 
 //Funciones
 const crearTarjeta = (unEstudiante) => {
@@ -104,6 +92,28 @@ botonPromedio.addEventListener('click', () => {
     seccionPromedio.innerHTML = "Promedio general: " + toFixedTrunc(promedio, 2)
 
     seccionPromedio.style.display = "block"
+})
+
+botonAgregar.addEventListener('click', () => {
+    const nombre = nombreEstudiante.value.trim()
+    const nota = parseInt(notaEstudiante.value.trim())
+
+    if(nombre == "" || isNaN(nota) || nota < 0 || nota >100){
+        alert("ERROR: Nombre o nota inválido")
+        return
+    }
+
+    const nuevoEstudiante = {
+        id: estudiantes.length + 1,
+        nombre,
+        nota
+    }
+
+    estudiantes.push(nuevoEstudiante)
+    renderizarLista(estudiantes)
+
+    nombreEstudiante.value = ""
+    notaEstudiante.value = ""
 
 })
 
